@@ -1,0 +1,260 @@
+CREATE DATABASE tccunesc;
+USE tccunesc;
+
+CREATE TABLE aluno (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    DataCadastro DATETIME NOT NULL,
+    Codigo VARCHAR(20),
+    Senha VARCHAR(20),
+    Email VARCHAR(50),
+    Telefone VARCHAR(20),
+    Nome VARCHAR(100),
+    Ativo BIT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE professor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    DataCadastro DATETIME NOT NULL,
+    Nome VARCHAR(100) NOT NULL,
+    Ativo BIT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE sala (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    DataCadastro DATETIME NOT NULL,
+    Bloco VARCHAR(5) NOT NULL,
+    Numeracao INT NOT NULL
+);
+
+CREATE TABLE materia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    DataCadastro DATETIME NOT NULL,
+    Nome VARCHAR(50) NOT NULL,
+    QuantidadeCreditos INT NOT NULL,
+    Ativo BIT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE cronograma (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    IdMateria INT NOT NULL,
+    IdSala INT NOT NULL,
+    DataInicioAula DATETIME NOT NULL,
+    DataFimAula DATETIME NOT NULL,
+    Ano INT NOT NULL,
+    Semestre INT NOT NULL,
+
+    FOREIGN KEY (IdMateria) REFERENCES materia(id),
+    FOREIGN KEY (IdSala) REFERENCES sala(id)
+);
+
+CREATE TABLE presenca (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    IdAluno INT NOT NULL,
+    IdCronograma INT NOT NULL,
+    HorarioEntrada DATETIME,
+    HorarioSaida DATETIME,
+
+    FOREIGN KEY (IdAluno) REFERENCES aluno(id),
+    FOREIGN KEY (IdCronograma) REFERENCES cronograma(id)
+);
+
+CREATE TABLE alunomateria (
+    IdAluno INT NOT NULL,
+    IdMateria INT NOT NULL,
+
+    FOREIGN KEY (IdAluno) REFERENCES aluno(id),
+    FOREIGN KEY (IdMateria) REFERENCES materia(id),
+
+    PRIMARY KEY (IdAluno, IdMateria)
+);
+
+
+
+
+
+
+
+INSERT INTO professor (DataCadastro, Nome, Ativo) VALUES
+    ('2022-01-01 09:00:00', 'John Smith', 1),
+    ('2022-02-02 10:30:00', 'Maria García', 1),
+    ('2021-03-03 11:15:00', 'Ahmed Ali', 1),
+    ('2021-04-04 14:45:00', 'Anna Müller', 1),
+    ('2020-05-05 08:20:00', 'Javier Rodriguez', 1),
+    ('2020-06-06 16:10:00', 'Sophie Dupont', 1),
+    ('2019-07-07 13:25:00', 'Raj Patel', 1),
+    ('2019-08-08 09:50:00', 'Elena Petrova', 1),
+    ('2018-09-09 12:30:00', 'Hiroshi Tanaka', 1),
+    ('2018-10-10 15:05:00', 'Olga Ivanova', 1),
+    ('2017-11-11 10:15:00', 'Carlos López', 1),
+    ('2017-12-12 14:20:00', 'Maria Gonzalez', 1),
+    ('2016-01-13 11:40:00', 'Luigi Rossi', 1),
+    ('2016-02-14 16:55:00', 'Marta Fernandez', 1),
+    ('2015-03-15 08:30:00', 'Mohammed Ali', 1),
+    ('2015-04-16 13:10:00', 'Sofia Silva', 1),
+    ('2014-05-17 15:45:00', 'Lars Jensen', 1),
+    ('2014-06-18 09:25:00', 'Yuki Sato', 1),
+    ('2013-07-19 12:55:00', 'Elena Kuznetsova', 1),
+    ('2013-08-20 10:00:00', 'Abdul Rahman', 1),
+    ('2012-09-21 14:35:00', 'Sophie Martin', 1),
+    ('2012-10-22 11:20:00', 'Andrea Bianchi', 1),
+    ('2011-11-23 16:40:00', 'Ryu Tanaka', 1),
+    ('2011-12-24 08:45:00', 'Maria Santos', 1),
+    ('2010-01-25 13:50:00', 'Mikhail Ivanov', 1),
+    ('2010-02-26 09:15:00', 'Marta Lopez', 1),
+    ('2009-03-27 15:30:00', 'Chen Wei', 1),
+    ('2009-04-28 12:05:00', 'Eva Schmidt', 1),
+    ('2008-05-29 14:00:00', 'Ravi Patel', 1),
+    ('2008-06-30 11:55:00', 'Isabella Rossi', 1),
+    ('2007-07-31 16:25:00', 'Takeshi Yamada', 1),
+    ('2007-08-01 08:35:00', 'Sophie Dupont', 1),
+    ('2006-09-02 10:10:00', 'Amina Rahman', 1),
+    ('2006-10-03 13:20:00', 'Hans Müller', 1),
+    ('2005-11-04 15:55:00', 'Maria Garcia', 1),
+    ('2005-12-05 09:40:00', 'Mohammed Ali', 1),
+    ('2004-01-06 12:45:00', 'Sofia Silva', 1),
+    ('2004-02-07 11:30:00', 'Ryu Tanaka', 1),
+    ('2003-03-08 14:50:00', 'Lars Jensen', 1),
+    ('2003-04-09 16:15:00', 'Olga Ivanova', 1);
+
+INSERT INTO aluno (DataCadastro, Codigo, Senha, Email, Telefone, Nome, Ativo) VALUES
+    ('2022-01-15 08:00:00', '123456', 'senha123', 'joao@example.com', '(11) 98765-4321', 'João Silva', 1),
+    ('2021-03-20 14:30:00', '789012', 'abcde456', 'maria@example.com', '(22) 55555-5555', 'Maria García', 1),
+    ('2020-06-10 10:45:00', '456789', 'senha321', 'ahmed@example.com', '(33) 12345-6789', 'Ahmed Ali', 1),
+    ('2019-08-05 09:15:00', '987654', 'abcd1234', 'anna@example.com', '(44) 77777-7777', 'Anna Müller', 1),
+    ('2018-12-25 16:20:00', '567890', 'senha5678', 'javier@example.com', '(55) 22222-2222', 'Javier Rodriguez', 1),
+    ('2017-03-05 11:30:00', '234567', 'senha4321', 'sophie@example.com', '(66) 88888-8888', 'Sophie Dupont', 1),
+    ('2016-05-12 15:00:00', '890123', 'abcd5678', 'raj@example.com', '(77) 99999-9999', 'Raj Patel', 1),
+    ('2015-09-22 13:10:00', '654321', 'senha9876', 'elena@example.com', '(88) 33333-3333', 'Elena Petrova', 1),
+    ('2014-11-30 08:45:00', '345678', 'abc12345', 'hiroshi@example.com', '(99) 44444-4444', 'Hiroshi Tanaka', 1),
+    ('2013-12-03 12:55:00', '012345', 'senha2468', 'olga@example.com', '(10) 11111-1111', 'Olga Ivanova', 1),
+    ('2012-01-15 08:00:00', '234567', 'senha4321', 'luigi@example.com', '(11) 98765-4321', 'Luigi Rossi', 1),
+    ('2011-03-20 14:30:00', '678901', 'abcd5678', 'marta@example.com', '(22) 55555-5555', 'Marta Fernandez', 1),
+    ('2010-06-10 10:45:00', '345678', 'senha123', 'mohammed@example.com', '(33) 12345-6789', 'Mohammed Ali', 1),
+    ('2009-08-05 09:15:00', '123456', 'senha9876', 'sofia@example.com', '(44) 77777-7777', 'Sofia Silva', 1),
+    ('2008-12-25 16:20:00', '890123', 'abcd1234', 'lars@example.com', '(55) 22222-2222', 'Lars Jensen', 1),
+    ('2007-03-05 11:30:00', '567890', 'senha4321', 'yuki@example.com', '(66) 88888-8888', 'Yuki Sato', 1),
+    ('2006-05-12 15:00:00', '234567', 'senha123', 'elena@example.com', '(77) 99999-9999', 'Elena Kuznetsova', 1),
+    ('2005-09-22 13:10:00', '012345', 'senha9876', 'abdul@example.com', '(88) 33333-3333', 'Abdul Rahman', 1),
+    ('2004-11-30 08:45:00', '678901', 'abcd5678', 'sophie@example.com', '(99) 44444-4444', 'Sophie Martin', 1),
+    ('2003-12-03 12:55:00', '345678', 'senha4321', 'andrea@example.com', '(10) 11111-1111', 'Andrea Bianchi', 1),
+    ('2002-01-15 08:00:00', '123456', 'senha123', 'ryu@example.com', '(11) 98765-4321', 'Ryu Tanaka', 1),
+    ('2001-03-20 14:30:00', '789012', 'abcd5678', 'maria@example.com', '(22) 55555-5555', 'Maria Santos', 1),
+    ('2000-06-10 10:45:00', '456789', 'senha123', 'mikhail@example.com', '(33) 12345-6789', 'Mikhail Ivanov', 1),
+    ('1999-08-05 09:15:00', '987654', 'senha4321', 'marta@example.com', '(44) 77777-7777', 'Marta Lopez', 1),
+    ('1998-12-25 16:20:00', '567890', 'abcd5678', 'chen@example.com', '(55) 22222-2222', 'Chen Wei', 1),
+    ('1997-03-05 11:30:00', '234567', 'senha123', 'eva@example.com', '(66) 88888-8888', 'Eva Schmidt', 1),
+    ('1996-05-12 15:00:00', '890123', 'abcd5678', 'ravi@example.com', '(77) 99999-9999', 'Ravi Patel', 1),
+    ('1995-09-22 13:10:00', '654321', 'senha123', 'isabella@example.com', '(88) 33333-3333', 'Isabella Rossi', 1);
+
+
+INSERT INTO materia (DataCadastro, Nome, QuantidadeCreditos, Ativo) VALUES
+    ('2020-01-15 08:00:00', 'Introdução à Programação', 4, 1),
+    ('2020-02-20 14:30:00', 'Algoritmos e Estruturas de Dados', 4, 1),
+    ('2020-03-10 10:45:00', 'Banco de Dados', 4, 1),
+    ('2020-04-05 09:15:00', 'Sistemas Operacionais', 4, 1),
+    ('2020-05-25 16:20:00', 'Redes de Computadores', 4, 1),
+    ('2020-06-05 11:30:00', 'Inteligência Artificial', 4, 1),
+    ('2020-07-12 15:00:00', 'Programação Web', 4, 1),
+    ('2020-08-22 13:10:00', 'Segurança da Informação', 4, 1),
+    ('2020-09-30 08:45:00', 'Engenharia de Software', 4, 1),
+    ('2020-10-03 12:55:00', 'Matemática Discreta', 4, 1),
+    ('2021-01-15 08:00:00', 'Sistemas Distribuídos', 4, 1),
+    ('2021-02-20 14:30:00', 'Gestão de Projetos de TI', 4, 1),
+    ('2021-03-10 10:45:00', 'Machine Learning', 4, 1),
+    ('2021-04-05 09:15:00', 'Desenvolvimento Mobile', 4, 1),
+    ('2021-05-25 16:20:00', 'Estatística Aplicada', 4, 1),
+    ('2021-06-05 11:30:00', 'Ética em Tecnologia', 2, 1),
+    ('2021-07-12 15:00:00', 'Sistemas Embarcados', 2, 1),
+    ('2021-08-22 13:10:00', 'Interação Humano-Computador', 2, 1),
+    ('2021-09-30 08:45:00', 'Física para Computação', 2, 1),
+    ('2021-10-03 12:55:00', 'Linguagens de Programação', 2, 1),
+    ('2022-01-15 08:00:00', 'Cálculo Diferencial', 2, 1),
+    ('2022-02-20 14:30:00', 'Estruturas de Dados Avançadas', 4, 1),
+    ('2022-03-10 10:45:00', 'Engenharia de Requisitos', 4, 1),
+    ('2022-04-05 09:15:00', 'Arquitetura de Computadores', 4, 1),
+    ('2022-05-25 16:20:00', 'Sistemas de Informação', 4, 1),
+    ('2022-06-05 11:30:00', 'Design de Interfaces', 4, 1),
+    ('2022-07-12 15:00:00', 'Big Data Analytics', 4, 1),
+    ('2022-08-22 13:10:00', 'Programação Funcional', 4, 1),
+    ('2022-09-30 08:45:00', 'Administração de Redes', 4, 1),
+    ('2022-10-03 12:55:00', 'Compiladores', 4, 1),
+    ('2023-01-15 08:00:00', 'Sistemas de Recomendação', 4, 1),
+    ('2023-02-20 14:30:00', 'Computação Gráfica', 4, 1),
+    ('2023-03-10 10:45:00', 'Sistemas de Gerenciamento de Conteúdo', 2, 1),
+    ('2023-04-05 09:15:00', 'Segurança de Redes', 4, 1),
+    ('2023-05-25 16:20:00', 'Sistemas de Informação Geográfica', 2, 1),
+    ('2023-06-05 11:30:00', 'Programação Paralela e Distribuída', 4, 1),
+    ('2023-07-12 15:00:00', 'Banco de Dados Distribuídos', 4, 1),
+    ('2023-08-22 13:10:00', 'Ética em Tecnologia', 2, 1),
+    ('2023-09-30 08:45:00', 'Lógica Computacional', 2, 1),
+    ('2020-01-15 08:00:00', 'Biologia Celular', 4, 1),
+    ('2020-02-20 14:30:00', 'Ecologia', 4, 1),
+    ('2020-03-10 10:45:00', 'Genética', 4, 1),
+    ('2020-04-05 09:15:00', 'Anatomia Humana', 4, 1),
+    ('2020-05-25 16:20:00', 'Física Clássica', 4, 1),
+    ('2020-06-05 11:30:00', 'Física Moderna', 4, 1),
+    ('2020-07-12 15:00:00', 'Química Geral', 4, 1),
+    ('2020-08-22 13:10:00', 'Química Orgânica', 4, 1),
+    ('2020-09-30 08:45:00', 'Matemática Aplicada à Física', 4, 1),
+    ('2020-10-03 12:55:00', 'Botânica', 4, 1),
+    ('2021-01-15 08:00:00', 'Zoologia', 4, 1),
+    ('2021-02-20 14:30:00', 'Astronomia', 4, 1),
+    ('2021-03-10 10:45:00', 'Bioquímica', 4, 1),
+    ('2021-04-05 09:15:00', 'Física Quântica', 4, 1),
+    ('2021-05-25 16:20:00', 'Biologia Molecular', 4, 1),
+    ('2021-06-05 11:30:00', 'Termodinâmica', 4, 1),
+    ('2021-07-12 15:00:00', 'Óptica', 4, 1),
+    ('2021-08-22 13:10:00', 'Geologia', 4, 1),
+    ('2021-09-30 08:45:00', 'Física Nuclear', 4, 1),
+    ('2021-10-03 12:55:00', 'Microbiologia', 4, 1),
+    ('2022-01-15 08:00:00', 'Imunologia', 4, 1),
+    ('2022-02-20 14:30:00', 'Biologia Marinha', 4, 1),
+    ('2022-03-10 10:45:00', 'Geografia Física', 4, 1),
+    ('2022-04-05 09:15:00', 'Física de Partículas', 4, 1),
+    ('2022-05-25 16:20:00', 'Biologia Evolutiva', 4, 1),
+    ('2022-06-05 11:30:00', 'Mecânica Quântica', 4, 1),
+    ('2022-07-12 15:00:00', 'Ecologia Aquática', 4, 1),
+    ('2022-08-22 13:10:00', 'Física de Plasmas', 4, 1),
+    ('2022-09-30 08:45:00', 'Bioética', 2, 1),
+    ('2022-10-03 12:55:00', 'Física das Ondas', 2, 1),
+    ('2023-01-15 08:00:00', 'Anatomia Comparada', 2, 1),
+    ('2023-02-20 14:30:00', 'Física Aplicada', 2, 1),
+    ('2023-03-10 10:45:00', 'Química Analítica', 4, 1),
+    ('2023-04-05 09:15:00', 'Oceanografia', 4, 1),
+    ('2023-05-25 16:20:00', 'Biologia do Desenvolvimento', 2, 1),
+    ('2023-06-05 11:30:00', 'Astrofísica', 4, 1),
+    ('2023-07-12 15:00:00', 'Eletromagnetismo', 4, 1),
+    ('2023-08-22 13:10:00', 'Biologia Molecular', 2, 1),
+    ('2023-09-30 08:45:00', 'Mecânica dos Fluidos', 2, 1);
+
+INSERT INTO sala (DataCadastro, Bloco, Numeracao) VALUES
+    ('2022-01-15 08:00:00', 'A', 101),
+    ('2022-02-20 14:30:00', 'B', 102),
+    ('2022-03-10 10:45:00', 'C', 103),
+    ('2022-04-05 09:15:00', 'A', 104),
+    ('2022-05-25 16:20:00', 'B', 105),
+    ('2022-06-05 11:30:00', 'C', 106),
+    ('2022-07-12 15:00:00', 'A', 107),
+    ('2022-08-22 13:10:00', 'B', 108),
+    ('2022-09-30 08:45:00', 'C', 109),
+    ('2022-10-03 12:55:00', 'A', 110),
+    ('2021-01-15 08:00:00', 'D', 201),
+    ('2021-02-20 14:30:00', 'E', 202),
+    ('2021-03-10 10:45:00', 'F', 203),
+    ('2021-04-05 09:15:00', 'D', 204),
+    ('2021-05-25 16:20:00', 'E', 205),
+    ('2021-06-05 11:30:00', 'F', 206),
+    ('2021-07-12 15:00:00', 'D', 207),
+    ('2021-08-22 13:10:00', 'E', 208),
+    ('2021-09-30 08:45:00', 'F', 209),
+    ('2021-10-03 12:55:00', 'D', 210),
+    ('2020-01-15 08:00:00', 'G', 301),
+    ('2020-02-20 14:30:00', 'H', 302),
+    ('2020-03-10 10:45:00', 'I', 303),
+    ('2020-04-05 09:15:00', 'G', 304),
+    ('2020-05-25 16:20:00', 'H', 305),
+    ('2020-06-05 11:30:00', 'I', 306),
+    ('2020-07-12 15:00:00', 'G', 307),
+    ('2020-08-22 13:10:00', 'H', 308),
+    ('2020-09-30 08:45:00', 'I', 309),
+    ('2020-10-03 12:55:00', 'G', 310);
