@@ -3,6 +3,7 @@ using PresencaAutomatizada.Application.Api.Request;
 using PresencaAutomatizada.Application.Api.Response;
 using PresencaAutomatizada.Application.Api.Response.Base;
 using PresencaAutomatizada.Application.Data.Base;
+using PresencaAutomatizada.Application.Data.Repository;
 using PresencaAutomatizada.Application.Domain.Interface;
 using PresencaAutomatizada.Application.Domain.Models;
 
@@ -123,6 +124,13 @@ namespace PresencaAutomatizada.Application.Api.Controllers
 
             return Ok(new ResponseBase(true, "Presença registrada com sucesso."));
 
+        }
+
+        [HttpGet("Alunos")]
+        public async Task<IActionResult> Get()
+        {
+            var alunos = await _alunoRepository.Buscar();
+            return Ok(new AlunosResponse { Sucesso = true, Mensagem = "", Alunos = alunos });
         }
     }
 }

@@ -144,5 +144,12 @@ namespace PresencaAutomatizada.Application.Data.Repository
 
             return nome;
         }
+
+        public async Task<List<Aluno>> Buscar()
+        {
+            var alunos = await _session.Connection.QueryAsync<Aluno>("SELECT * FROM aluno", null, _session.Transaction);
+
+            return alunos.ToList();
+        }
     }
 }

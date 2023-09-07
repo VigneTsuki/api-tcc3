@@ -16,5 +16,6 @@ namespace PresencaAutomatizada.Application.Domain.Interface
         Task RegistrarPresenca(int idAluno, int idCronograma, DateTime dataAtual);
         Task<List<int>> IdsAlunoPorIdMateria(int idMateria);
         Task<string> BuscarNomeAlunoPorId(int idAluno);
+        Task<List<Aluno>> Buscar();
     }
 }
