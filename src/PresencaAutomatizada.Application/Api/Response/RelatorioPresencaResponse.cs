@@ -17,5 +17,7 @@
         public int IdCronograma { get; set; }
         public string NomeAluno { get; set; }
         public bool Presente { get; set; }
+        public string DataEntrada { get; set; }
+        public string DataSaida { get; set; }
     }
 }

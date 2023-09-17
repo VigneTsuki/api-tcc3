@@ -1,4 +1,5 @@
-﻿using PresencaAutomatizada.Application.Domain.Models;
+﻿using PresencaAutomatizada.Application.Api.Dto;
+using PresencaAutomatizada.Application.Domain.Models;
 
 namespace PresencaAutomatizada.Application.Domain.Interface
 {
@@ -17,5 +18,6 @@ namespace PresencaAutomatizada.Application.Domain.Interface
         Task<List<int>> IdsAlunoPorIdMateria(int idMateria);
         Task<string> BuscarNomeAlunoPorId(int idAluno);
         Task<List<Aluno>> Buscar();
+        Task<HorarioEntradaSaidaPresencaDto> HorarioEntradaESaidaAluno(int idAluno, int idCronograma);
     }
 }

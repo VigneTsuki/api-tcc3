@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using PresencaAutomatizada.Application.Api.Dto;
 using PresencaAutomatizada.Application.Data.Base;
 using PresencaAutomatizada.Application.Domain.Interface;
 using PresencaAutomatizada.Application.Domain.Models;
@@ -150,6 +151,18 @@ namespace PresencaAutomatizada.Application.Data.Repository
             var alunos = await _session.Connection.QueryAsync<Aluno>("SELECT * FROM aluno", null, _session.Transaction);
 
             return alunos.ToList();
+        }
+
+        public async Task<HorarioEntradaSaidaPresencaDto> HorarioEntradaESaidaAluno(int idAluno, int idCronograma)
+        {
+            var horarios = await _session.Connection.QueryFirstOrDefaultAsync<HorarioEntradaSaidaPresencaDto?>("SELECT HorarioEntrada, HorarioSaida FROM presenca " +
+                "WHERE idaluno = @IdAluno and idcronograma = @IdCronograma LIMIT 1", new
+                {
+                    IdAluno = idAluno,
+                    IdCronograma = idCronograma
+                }, _session.Transaction);
+
+            return horarios;
         }
     }
 }

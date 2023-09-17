@@ -38,13 +38,16 @@ namespace PresencaAutomatizada.Application.Api.Controllers
                     var alunoPresente = await _cronogramaRepository.AlunoPresentePorIdCronograma(idCronograma, idAluno);
                     var nomeAluno = await _alunoRepository.BuscarNomeAlunoPorId(idAluno);
                     var dataAula = await _cronogramaRepository.BuscarDiaAulaPorId(idCronograma);
+                    var horarios = await _alunoRepository.HorarioEntradaESaidaAluno(idAluno, idCronograma);
                     response.Presencas.Add(new RelatorioPresencaAlunosResponse
                     {
                         IdAluno = idAluno,
                         IdCronograma = idCronograma,
                         Presente = alunoPresente,
                         NomeAluno = nomeAluno,
-                        DiaAula = dataAula
+                        DiaAula = dataAula,
+                        DataEntrada = horarios?.HorarioEntrada?.ToString("HH:mm:ss"),
+                        DataSaida = horarios?.HorarioSaida?.ToString("HH:mm:ss"),
                     });
                 }
             }

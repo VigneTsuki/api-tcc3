@@ -72,7 +72,7 @@ namespace PresencaAutomatizada.Application.Data.Repository
         public async Task<bool> AlunoPresentePorIdCronograma(int idCronograma, int idAluno)
         {
             var presente = await _session.Connection.QueryFirstOrDefaultAsync<int?>("SELECT COUNT(*) FROM presenca " +
-                    "WHERE idcronograma = @IdCronograma AND idaluno = @IdAluno;", new
+                    "WHERE idcronograma = @IdCronograma AND idaluno = @IdAluno AND HorarioEntrada is not null;", new
                     {
                         IdCronograma = idCronograma,
                         IdAluno = idAluno
