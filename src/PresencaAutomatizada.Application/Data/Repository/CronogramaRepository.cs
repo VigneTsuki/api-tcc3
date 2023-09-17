@@ -31,15 +31,29 @@ namespace PresencaAutomatizada.Application.Data.Repository
 
         public async Task<IdMateriaCronogramaDto?> BuscarIdMateriaCronogramaPorSala(int idSala, DateTime dataAtual)
         {
+            var dataInicio = dataAtual.AddMinutes(6);
+            var dataFim = dataAtual.AddMinutes(-6);
+
             var ids = await _session.Connection.QueryFirstOrDefaultAsync<IdMateriaCronogramaDto?>("SELECT IdMateria, Id FROM cronograma " +
                     "WHERE idsala = @IdSala AND datainicioaula <= @DataInicioAula and datafimaula >= @DataFimAula LIMIT 1;", new 
                     { 
                         IdSala = idSala, 
-                        DataInicioAula = dataAtual.ToString("yyyy-MM-dd HH:mm:ss"),
-                        DataFimAula = dataAtual.ToString("yyyy-MM-dd HH:mm:ss")
+                        DataInicioAula = dataInicio.ToString("yyyy-MM-dd HH:mm:ss"),
+                        DataFimAula = dataFim.ToString("yyyy-MM-dd HH:mm:ss")
                     }, _session.Transaction);
 
             return ids;
+        }
+
+        public async Task<HorarioAulaDto?> BuscarDataInicioFimAula(int idCronograma)
+        {
+            var horariosAula = await _session.Connection.QueryFirstOrDefaultAsync<HorarioAulaDto?>("SELECT DataInicioAula, DataFimAula FROM cronograma " +
+                    "WHERE id = @IdCronograma LIMIT 1;", new
+                    {
+                        IdCronograma = idCronograma,
+                    }, _session.Transaction);
+
+            return horariosAula;
         }
 
         public async Task<List<int>> BuscarIdCronogramaRelatorioPresenca(int idMateria, int ano, int semestre)

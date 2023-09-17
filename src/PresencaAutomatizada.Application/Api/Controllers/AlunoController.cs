@@ -112,6 +112,14 @@ namespace PresencaAutomatizada.Application.Api.Controllers
             if (ids == null)
                 return BadRequest(new ResponseBase(false, "Não há nenhuma matéria cadastrada para este dia e horário na sala informada."));
 
+            var horariosAula = await _cronogramaRepository.BuscarDataInicioFimAula(ids.Id);
+
+            var limiteEntrada = horariosAula?.DataInicioAula.AddMinutes(-5);
+            var limiteSaida = horariosAula?.DataFimAula.AddMinutes(5);
+
+            if(dataAtual > limiteSaida || dataAtual < limiteEntrada)
+                return BadRequest(new ResponseBase(false, "Não há aulas registradas nesse horário neste sala."));
+
             var alunoMatriculado = await _alunoRepository.AlunoMatriculado(idAluno, ids.IdMateria);
             if (!alunoMatriculado)
                 return BadRequest(new ResponseBase(false, "O aluno não está matriculado nesta matéria."));
