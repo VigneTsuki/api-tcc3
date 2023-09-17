@@ -81,7 +81,7 @@ namespace PresencaAutomatizada.Application.Data.Repository
             return presente > 0;
         }
 
-        public async Task<string> BuscarDiaAulaPorId(int idCronograma)
+        public async Task<DateTime> BuscarDiaAulaPorId(int idCronograma)
         {
             var dataInicioAula = await _session.Connection.QueryFirstOrDefaultAsync<DateTime>("SELECT datainicioaula FROM cronograma " +
                     "WHERE id = @IdCronograma", new
@@ -89,7 +89,18 @@ namespace PresencaAutomatizada.Application.Data.Repository
                         IdCronograma = idCronograma
                     }, _session.Transaction);
 
-            return dataInicioAula.ToString("yyyy-MM-dd");
+            return dataInicioAula;
+        }
+
+        public async Task<DateTime> BuscarDiaAulaFimPorId(int idCronograma)
+        {
+            var dataFimAula = await _session.Connection.QueryFirstOrDefaultAsync<DateTime>("SELECT datafimaula FROM cronograma " +
+                    "WHERE id = @IdCronograma", new
+                    {
+                        IdCronograma = idCronograma
+                    }, _session.Transaction);
+
+            return dataFimAula;
         }
     }
 }

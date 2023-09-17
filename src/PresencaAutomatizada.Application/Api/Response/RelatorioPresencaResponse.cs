@@ -19,5 +19,6 @@
         public bool Presente { get; set; }
         public string DataEntrada { get; set; }
         public string DataSaida { get; set; }
+        public bool AulaJaRealizada { get; set; }
     }
 }

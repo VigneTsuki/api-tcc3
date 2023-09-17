@@ -4,6 +4,7 @@ using PresencaAutomatizada.Application.Api.Response;
 using PresencaAutomatizada.Application.Api.Response.Base;
 using PresencaAutomatizada.Application.Domain.Interface;
 using PresencaAutomatizada.Application.Domain.Models;
+using System.Globalization;
 
 namespace PresencaAutomatizada.Application.Api.Controllers
 {
@@ -45,9 +46,10 @@ namespace PresencaAutomatizada.Application.Api.Controllers
                         IdCronograma = idCronograma,
                         Presente = alunoPresente,
                         NomeAluno = nomeAluno,
-                        DiaAula = dataAula,
+                        DiaAula = dataAula.ToString("yyyy-MM-dd"),
                         DataEntrada = horarios?.HorarioEntrada?.ToString("HH:mm:ss"),
                         DataSaida = horarios?.HorarioSaida?.ToString("HH:mm:ss"),
+                        AulaJaRealizada = await _cronogramaRepository.BuscarDiaAulaFimPorId(idCronograma) <= DateTime.Now
                     });
                 }
             }
