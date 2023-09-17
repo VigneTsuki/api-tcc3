@@ -98,7 +98,7 @@ namespace PresencaAutomatizada.Application.Api.Controllers
             if (validacao != "")
                 return BadRequest(new ResponseBase(false, validacao));
 
-            var dataAtual = DateTime.Now;
+            var dataAtual = DateTime.UtcNow.AddHours(-3);
 
             var idSala = await _salaRepository.BuscarIdSalaPorNumeracaoECodigo(request.Numeracao, request.BlocoSala);
             if (idSala == 0)
