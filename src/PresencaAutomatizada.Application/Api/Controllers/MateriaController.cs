@@ -38,7 +38,7 @@ namespace PresencaAutomatizada.Application.Api.Controllers
             return Ok(new ResponseBase(true, "Matéria cadastrada com sucesso."));
         }
 
-        [HttpGet("Materia")]
+        [HttpGet("Materias")]
         public async Task<IActionResult> Get()
         {
             var materias = await _materiaRepository.Buscar();

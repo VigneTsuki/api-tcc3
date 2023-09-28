@@ -38,7 +38,7 @@ namespace PresencaAutomatizada.Application.Api.Controllers
             return Ok(new ResponseBase(true, "Sala cadastrada com sucesso."));
         }
 
-        [HttpGet("Sala")]
+        [HttpGet("Salas")]
         public async Task<IActionResult> Get()
         {
             var salas = await _salaRepository.Buscar();
