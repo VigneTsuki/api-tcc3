@@ -12,13 +12,6 @@ CREATE TABLE aluno (
     Ativo BIT NOT NULL DEFAULT 1
 );
 
-CREATE TABLE professor (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    DataCadastro DATETIME NOT NULL,
-    Nome VARCHAR(100) NOT NULL,
-    Ativo BIT NOT NULL DEFAULT 1
-);
-
 CREATE TABLE sala (
     id INT AUTO_INCREMENT PRIMARY KEY,
     DataCadastro DATETIME NOT NULL,
@@ -67,54 +60,6 @@ CREATE TABLE alunomateria (
 
     PRIMARY KEY (IdAluno, IdMateria)
 );
-
-
-
-
-
-
-
-INSERT INTO professor (DataCadastro, Nome, Ativo) VALUES
-    ('2022-01-01 09:00:00', 'John Smith', 1),
-    ('2022-02-02 10:30:00', 'Maria García', 1),
-    ('2021-03-03 11:15:00', 'Ahmed Ali', 1),
-    ('2021-04-04 14:45:00', 'Anna Müller', 1),
-    ('2020-05-05 08:20:00', 'Javier Rodriguez', 1),
-    ('2020-06-06 16:10:00', 'Sophie Dupont', 1),
-    ('2019-07-07 13:25:00', 'Raj Patel', 1),
-    ('2019-08-08 09:50:00', 'Elena Petrova', 1),
-    ('2018-09-09 12:30:00', 'Hiroshi Tanaka', 1),
-    ('2018-10-10 15:05:00', 'Olga Ivanova', 1),
-    ('2017-11-11 10:15:00', 'Carlos López', 1),
-    ('2017-12-12 14:20:00', 'Maria Gonzalez', 1),
-    ('2016-01-13 11:40:00', 'Luigi Rossi', 1),
-    ('2016-02-14 16:55:00', 'Marta Fernandez', 1),
-    ('2015-03-15 08:30:00', 'Mohammed Ali', 1),
-    ('2015-04-16 13:10:00', 'Sofia Silva', 1),
-    ('2014-05-17 15:45:00', 'Lars Jensen', 1),
-    ('2014-06-18 09:25:00', 'Yuki Sato', 1),
-    ('2013-07-19 12:55:00', 'Elena Kuznetsova', 1),
-    ('2013-08-20 10:00:00', 'Abdul Rahman', 1),
-    ('2012-09-21 14:35:00', 'Sophie Martin', 1),
-    ('2012-10-22 11:20:00', 'Andrea Bianchi', 1),
-    ('2011-11-23 16:40:00', 'Ryu Tanaka', 1),
-    ('2011-12-24 08:45:00', 'Maria Santos', 1),
-    ('2010-01-25 13:50:00', 'Mikhail Ivanov', 1),
-    ('2010-02-26 09:15:00', 'Marta Lopez', 1),
-    ('2009-03-27 15:30:00', 'Chen Wei', 1),
-    ('2009-04-28 12:05:00', 'Eva Schmidt', 1),
-    ('2008-05-29 14:00:00', 'Ravi Patel', 1),
-    ('2008-06-30 11:55:00', 'Isabella Rossi', 1),
-    ('2007-07-31 16:25:00', 'Takeshi Yamada', 1),
-    ('2007-08-01 08:35:00', 'Sophie Dupont', 1),
-    ('2006-09-02 10:10:00', 'Amina Rahman', 1),
-    ('2006-10-03 13:20:00', 'Hans Müller', 1),
-    ('2005-11-04 15:55:00', 'Maria Garcia', 1),
-    ('2005-12-05 09:40:00', 'Mohammed Ali', 1),
-    ('2004-01-06 12:45:00', 'Sofia Silva', 1),
-    ('2004-02-07 11:30:00', 'Ryu Tanaka', 1),
-    ('2003-03-08 14:50:00', 'Lars Jensen', 1),
-    ('2003-04-09 16:15:00', 'Olga Ivanova', 1);
 
 INSERT INTO aluno (DataCadastro, Codigo, Senha, Email, Telefone, Nome, Ativo) VALUES
     ('2022-01-15 08:00:00', '123456', 'senha123', 'joao@example.com', '(11) 98765-4321', 'João Silva', 1),
